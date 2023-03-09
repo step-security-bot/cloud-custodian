@@ -46,7 +46,14 @@ runs:
       id: cache_check
       shell: bash
       run: |
-        (poetry run custodian version && echo "venv=success" >> GITHUB_OUTPUT ) || (rm -rf .venv && echo "venv=recreate" >> GITHUB_OUTPUT )
+        if poetry run custodian version ; then
+           echo "venv=success" >> GITHUB_OUTPUT
+           echo "Cache Green"
+        else
+           rm -rf .venv
+           echo "venv==recreate" >> GITHUB_OUTPUT
+           echo "Cache Red"
+        fi
 
     - name: Virtualenv
       if: steps.cache.outputs.cache-hit != 'true' || steps.cache_check.outputs.venv != 'success'
