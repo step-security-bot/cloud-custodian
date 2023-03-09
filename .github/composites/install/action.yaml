@@ -47,11 +47,11 @@ runs:
       shell: bash
       run: |
         if poetry run custodian version ; then
-           echo "venv=success" >> GITHUB_OUTPUT
+           echo "venv=success" >> $GITHUB_OUTPUT
            echo "Cache Green"
         else
            rm -rf .venv
-           echo "venv==recreate" >> GITHUB_OUTPUT
+           echo "venv==recreate" >> $GITHUB_OUTPUT
            echo "Cache Red"
         fi
 
