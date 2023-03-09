@@ -29,6 +29,13 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Set up cache
+        uses: actions/cache@v3
+        id: tfcache
+        with:
+          path: .tfcache
+          key: tf-${{ runner.os }}-${{ hashFiles('**/*.tf') }}            
+
       - name: Functional Tests
         run: |
           mkdir -p .tfcache

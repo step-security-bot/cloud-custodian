@@ -15,6 +15,7 @@ from unittest import TestCase
 from contextlib import suppress
 from botocore.exceptions import ClientError
 from dateutil.tz import tzutc
+import pytest
 from pytest_terraform import terraform
 
 from c7n.exceptions import PolicyExecutionError, PolicyValidationError
@@ -33,6 +34,7 @@ from .common import (
 )
 
 
+@pytest.mark.audited
 @terraform('s3_tag')
 def test_s3_tag(test, s3_tag):
     test.patch(s3.S3, "executor_factory", MainThreadExecutor)
@@ -3895,6 +3897,7 @@ def test_s3_encryption_audit(test, aws_s3_encryption_audit):
     assert actual_names == expected_names
 
 
+@pytest.mark.audited
 @terraform('s3_ownership', scope='class')
 class TestBucketOwnership:
     def test_s3_ownership_empty(self, test, s3_ownership):
