@@ -3,7 +3,6 @@
 from .common import BaseTest, functional, event_data, placebo_dir
 from datetime import datetime
 from dateutil.tz import tzutc
-import pytest
 from pytest_terraform import terraform
 from botocore.exceptions import ClientError
 
