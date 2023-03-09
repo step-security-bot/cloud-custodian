@@ -64,6 +64,7 @@ def test_ec2_stop_protection_enabled(test, ec2_stop_protection_enabled):
     )
 
 
+@pytest.mark.audited
 @terraform('ec2_stop_protection_disabled')
 def test_ec2_stop_protection_disabled(test, ec2_stop_protection_disabled):
     aws_region = 'us-east-1'
