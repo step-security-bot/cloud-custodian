@@ -21,6 +21,7 @@ import pytest
 from pytest_terraform import terraform
 
 
+@pytest.mark.audited
 @terraform('ec2_stop_protection_enabled')
 def test_ec2_stop_protection_enabled(test, ec2_stop_protection_enabled):
     aws_region = 'us-east-1'
