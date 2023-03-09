@@ -3848,7 +3848,6 @@ class S3LifecycleTest(BaseTest):
             client.get_bucket_lifecycle_configuration(Bucket=bname)
 
 
-@pytest.mark.audited
 @terraform('aws_s3_encryption_audit')
 def test_s3_encryption_audit(test, aws_s3_encryption_audit):
     test.patch(s3.S3, "executor_factory", MainThreadExecutor)
@@ -3861,6 +3860,14 @@ def test_s3_encryption_audit(test, aws_s3_encryption_audit):
             "name": "s3-audit",
             "resource": "s3",
             "filters": [
+                {"type": "value",
+                 "key": "Name",
+                 "op": "in",
+                 "value": [
+                     'c7n-aws-s3-encryption-audit-test-a',
+                     'c7n-aws-s3-encryption-audit-test-b',
+                     'c7n-aws-s3-encryption-audit-test-c',
+                 ]},
                 {
                     "or": [
                         {

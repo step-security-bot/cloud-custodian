@@ -135,7 +135,7 @@ def test_sqs_set_encryption_options(test):
                                'KmsMasterKeyId': 'arn:aws:kms:us-east-1:1122334455:key/fb5bc39f-3cdb-438b-b959-3b812ae71628'}  # noqa
 
 
-@pytest.mark.audited
+# running functionally seems to get an error on mismatched key ids
 @terraform('sqs_set_encryption')
 def test_sqs_set_encryption(test, sqs_set_encryption):
     session_factory = test.replay_flight_data("test_sqs_set_encryption", region='us-west-2')

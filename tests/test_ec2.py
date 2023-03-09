@@ -20,8 +20,8 @@ from .common import BaseTest
 import pytest
 from pytest_terraform import terraform
 
-
-@pytest.mark.audited
+# this one doesn't work as a functional test as it enables stop protection, which prevents
+# the terraform teardown, we would need to also remove the stop protection in the test.
 @terraform('ec2_stop_protection_enabled')
 def test_ec2_stop_protection_enabled(test, ec2_stop_protection_enabled):
     aws_region = 'us-east-1'
