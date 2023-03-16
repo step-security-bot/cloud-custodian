@@ -7,6 +7,10 @@ on:
 jobs:
   BuildWheels:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      checks: write    
     steps:
       - uses: actions/checkout@v3
       - name: Install Custodian
@@ -54,6 +58,10 @@ jobs:
   TestWheels:
     runs-on: ubuntu-latest
     needs: BuildWheels
+    permissions:
+      id-token: write
+      contents: read
+      checks: write    
     steps:
       - uses: actions/checkout@v3
       - name: Setup Python
