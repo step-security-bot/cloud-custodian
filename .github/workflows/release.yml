@@ -9,10 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version "3.11"
-
       - name: Install Custodian
         uses: ./.github/composites/install
         with:
@@ -60,9 +56,10 @@ jobs:
     needs: BuildWheels
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          python-version "3.11"
+          python-version: "3.11"
 
       - uses: aws-actions/configure-aws-credentials@v1-node16
         with:
@@ -95,10 +92,6 @@ jobs:
     needs: TestWheels
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version "3.11"      
-      
       - name: Install Custodian
         uses: ./.github/composites/install
         with:
