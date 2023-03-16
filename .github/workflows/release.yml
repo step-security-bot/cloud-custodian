@@ -121,6 +121,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ env.release_tag }}
           commit: main
+          draft: true
           bodyFile: release.md
 
       - name: Configure Poetry
