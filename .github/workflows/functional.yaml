@@ -2,6 +2,9 @@ name: "Functional"
 
 on:
   workflow_dispatch: {}
+permissions:
+  contents: read
+
 jobs:
   AWS:
     runs-on: ubuntu-latest
@@ -10,17 +13,22 @@ jobs:
       contents: read
       checks: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Harden Runner
+        uses: step-security/harden-runner@1f99358870fe1c846a3ccba386cc2b2246836776 # v2.2.1
+        with:
+          egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0
+      - uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435 # v4.5.0
         with:
           python-version: "3.11"
 
-      - uses: aws-actions/configure-aws-credentials@v1-node16
+      - uses: aws-actions/configure-aws-credentials@023daa7fe5f7f817faa31fc0fc4a8d0fb6224ed0 # v1-node16
         with:
           role-to-assume: ${{ secrets.AWS_FTEST_ROLE }}
           aws-region: us-east-1
 
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2.0.3
         with:
           terraform_wrapper: false
 
@@ -30,7 +38,7 @@ jobs:
           python-version: "3.11"
 
       - name: Set up cache
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
         id: tfcache
         with:
           path: .tfcache
@@ -45,7 +53,7 @@ jobs:
           C7N_TEST_RUN: "true"
 
       - name: Notify Slack
-        uses: ravsamhq/notify-slack-action@v2
+        uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2
         if: always()
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_CI_HOOK }}
