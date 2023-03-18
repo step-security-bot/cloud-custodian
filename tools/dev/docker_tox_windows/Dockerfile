@@ -4,7 +4,7 @@
 # Change working directory to the repository root and run:
 # docker build -t custodian_tox_win . -f tools/dev/docker_tox_windows/Dockerfile && docker run -it custodian_tox_win
 
-FROM python:3.8-windowsservercore
+FROM python:3.8-windowsservercore@sha256:fe99e6d35dca1e9896520ca7c5853e765b32cadb1f86f9d3f35f43ebf7566276
 
 LABEL name="custodian tox windows" \
       description="Run Custodian test suite" \

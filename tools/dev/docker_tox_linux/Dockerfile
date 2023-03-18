@@ -18,7 +18,7 @@
 
 
 
-FROM python:3.8-buster
+FROM python:3.8-buster@sha256:5dbefd56dab08e50555d99b6d4d0409cbe3ac9d67892a27baed28a894d787010
 
 LABEL name="custodian tox" \
       description="Run Custodian test suite" \

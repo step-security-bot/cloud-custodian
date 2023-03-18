@@ -7,6 +7,9 @@ on:
     tags:
       # todo: update for 1.0
       - 0.*
+permissions:
+  contents: read
+
 jobs:
   Publish:
     permissions:
@@ -20,7 +23,12 @@ jobs:
           - policystream
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Harden Runner
+        uses: step-security/harden-runner@1f99358870fe1c846a3ccba386cc2b2246836776 # v2.2.1
+        with:
+          egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0
       - name: ${{ matrix.image }} build and push
         uses: ./.github/composites/docker-build-push
         env:
@@ -32,7 +40,7 @@ jobs:
           platforms: linux/arm64,linux/amd64
 
       - name: Notify Slack
-        uses: ravsamhq/notify-slack-action@v2
+        uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2
         if: always()
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_CI_HOOK }}
