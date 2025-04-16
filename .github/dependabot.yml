@@ -12,3 +12,58 @@ updates:
       patterns:
         - "*"
 
+
+- package-ecosystem: docker
+  directory: /
+  schedule:
+    interval: daily
+
+- package-ecosystem: docker
+  directory: /tools/c7n_mailer
+  schedule:
+    interval: daily
+
+- package-ecosystem: pip
+  directory: /tools/c7n_oci
+  schedule:
+    interval: daily
+
+- package-ecosystem: docker
+  directory: /tools/c7n_org
+  schedule:
+    interval: daily
+
+- package-ecosystem: docker
+  directory: /tools/c7n_policystream
+  schedule:
+    interval: daily
+
+- package-ecosystem: pip
+  directory: /tools/c7n_salactus
+  schedule:
+    interval: daily
+
+- package-ecosystem: gomod
+  directory: /tools/cask
+  schedule:
+    interval: daily
+
+- package-ecosystem: pip
+  directory: /tools/dev
+  schedule:
+    interval: daily
+
+- package-ecosystem: pip
+  directory: /tools/sandbox/c7n_autodoc
+  schedule:
+    interval: daily
+
+- package-ecosystem: pip
+  directory: /tools/sandbox/c7n_sphere11
+  schedule:
+    interval: daily
+
+- package-ecosystem: pip
+  directory: /tools/sandbox/zerodark
+  schedule:
+    interval: daily
